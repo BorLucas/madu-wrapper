@@ -1,142 +1,130 @@
-/* Estilos Globais e Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-body, html {
-    height: 100%;
-    width: 100%;
-    overflow: hidden; /* Esconde a barra de rolagem */
-    background-color: #d4145a; /* Cor de fundo magenta */
-    font-family: 'Lato', sans-serif;
-    color: #fff;
-}
-
-/* Contêiner Principal da Página Inteira */
-.page-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Empurra o conteúdo pro meio e o Spotify pro final */
+body {
+    background-color: #121212;
+    color: white;
+    overflow: hidden; /* Esconde barras de rolagem */
     height: 100vh;
-    width: 100%;
-    position: relative;
-    z-index: 5;
+    display: flex;
+    flex-direction: column;
 }
 
-/* 1. Área de Conteúdo Central */
-.content-center {
+/* Barras de Progresso */
+.progress-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+    z-index: 10;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: white;
+    border-radius: 4px;
+}
+
+/* Slides */
+#story-container {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 160px); /* Desconta o tamanho do footer */
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-grow: 1; /* Ocupa o espaço livre verticalmente */
-    padding: 60px 30px;
     text-align: center;
-    position: relative;
+    padding: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    transform: scale(0.95);
 }
 
-/* 2. Área do Rodapé (Spotify) */
-.spotify-footer {
-    height: 100px;
-    width: 100%;
-    background-color: #121212; /* Cor preta padrão do Spotify */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 20px;
-    box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.5);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    z-index: 2;
 }
 
-.spotify-footer iframe {
-    max-width: 400px;
-    width: 100%;
-    height: 80px;
-    border-radius: 12px;
-    border: none;
-}
+/* Tipografia e Elementos Especiais */
+h1 { font-size: 2.5rem; margin-bottom: 1rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
+h2 { font-size: 2rem; margin-bottom: 1.5rem; text-shadow: 1px 1px 5px rgba(0,0,0,0.3); }
+p { font-size: 1.2rem; line-height: 1.6; text-shadow: 1px 1px 4px rgba(0,0,0,0.3); }
+.highlight-text { font-size: 1.5rem; font-weight: bold; }
+.final-phrase { margin-top: 2rem; font-size: 3rem; color: #fff; }
 
-/* Tipografia e Efeitos Visuais */
-.headline {
-    font-family: 'Poppins', sans-serif;
-    font-size: 2.8rem;
-    font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.sub-headline {
+/* Botão da primeira tela */
+#start-btn {
+    margin-top: 30px;
+    padding: 15px 30px;
     font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.9;
+    font-weight: bold;
+    color: #121212;
+    background-color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
 }
+#start-btn:hover { transform: scale(1.05); }
 
-/* Efeito Neon Amarelo */
-.glow-text {
-    color: #fff9d6;
-    text-shadow: 0 0 10px rgba(255, 222, 89, 0.8), 0 0 20px rgba(255, 222, 89, 0.6);
-}
-
-/* Caixa de Texto Translúcida */
-.text-card {
-    font-style: italic;
-    font-size: 1.1rem;
-    line-height: 1.4;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 25px 20px;
+/* Fotos */
+.photo-container img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
     border-radius: 20px;
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    margin-top: 20px;
-    max-width: 350px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-.highlight-numbers {
-    font-size: 4rem;
-    display: inline-block;
-    margin: 5px 0;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 900;
+.gallery {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 1.5rem;
 }
 
-/* Ícones Flutuantes Decorativos */
-.floating-icon {
-    position: absolute;
-    opacity: 0.7;
-    animation: float 4s ease-in-out infinite;
+.gallery img {
+    width: 160px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.icon-heart { 
-    bottom: 15%; 
-    left: 15%; 
-    color: #ff0a54; 
-    font-size: 2.5rem;
-}
-.icon-star { 
-    top: 15%; 
-    left: 20%; 
-    color: #ffde59; 
-    font-size: 1.8rem;
-    text-shadow: 0 0 15px rgba(255, 222, 89, 0.8);
-}
-.icon-music { 
-    top: 25%; 
-    right: 15%; 
-    color: #fff; 
-    font-size: 1.5rem; 
-    opacity: 0.4;
-}
-
-/* Animação suave para os ícones */
-@keyframes float {
-    0% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-15px) rotate(10deg); }
-    100% { transform: translateY(0px) rotate(0deg); }
+/* Rodapé do Spotify */
+.spotify-footer {
+    height: 152px;
+    width: 100%;
+    background-color: #000;
+    padding: 0;
+    z-index: 10;
 }
