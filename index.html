@@ -4,75 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nosso Wrapped - Dia dos Namorados</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="wrapped-container" id="main-container">
-        <div class="progress-bars" id="progress-bars"></div>
-
-        <div class="click-area-left" onclick="prevSlide()"></div>
-        <div class="click-area-right" onclick="nextSlide()"></div>
-
-        <div class="floating-icon icon-1">✨</div>
-        <div class="floating-icon icon-2">🎵</div>
-        <div class="floating-icon icon-3">❤️</div>
-
-        <div class="slide active" id="slide-0">
-            <h3>Tudo começou com...</h3>
-            <h1 class="glow-text">NOSSO PRIMEIRO ENCONTRO! ❤️</h1>
-            <p>Pegamos todos os dados do nosso último ano e descobrimos algo incrível.</p>
-            <p class="small-text">(Toque na tela para continuar)</p>
-        </div>
-
-        <div class="slide" id="slide-1">
-            <h1 class="glow-text">Aquele dia mágico ✨</h1>
-            <div class="text-card">
-                "Substitua este texto pela história de vocês. Como foi se ver pela primeira vez, o frio na barriga e o começo de tudo..."
-            </div>
-        </div>
-
-        <div class="slide" id="slide-2">
-            <h3>Desde 22/05/2025...</h3>
-            
-            <div class="polaroid tilt-left">
-                <img src="https://via.placeholder.com/400x400/ff9a9e/ffffff?text=Nossa+Foto+Aqui" alt="Nossa Foto">
-            </div>
-            
-            <p>Já vivemos <span class="glow-text highlight" id="dias-juntos">0</span> dias incríveis.</p>
-            <p>E <strong id="horas-juntas">0</strong> horas que eu guardaria num potinho.</p>
-        </div>
-
-        <div class="slide" id="slide-3">
-            <h3>E as estatísticas não mentem...</h3>
-            <div class="polaroid tilt-right">
-                 <img src="https://via.placeholder.com/400x400/fad0c4/ffffff?text=Foto+Dela+Aqui" alt="Ela">
-            </div>
-            <h1 class="glow-text" style="font-size: 2rem;">Você é a minha escolha número 1, todos os dias.</h1>
-        </div>
-
-        <div class="slide" id="slide-4">
-            <h1 class="glow-text">Nosso cantinho 🍃</h1>
-            <p>Os melhores brindes e risadas no Maria Eugênia.</p>
-            <div class="polaroid">
-                <img src="https://via.placeholder.com/400x400/a1c4fd/ffffff?text=Foto+Maria+Eugenia" alt="Restaurante">
-            </div>
-        </div>
-
-        <div class="slide" id="slide-5">
-            <h3>Isso é só o começo.</h3>
-            <div style="margin-top: 40px; text-align: center;">
-                <h2>Te amo,</h2>
-                <h1 class="glow-text" style="font-size: 3.5rem;">hoje e<br>sempre.</h1>
-            </div>
-        </div>
-
-        <div class="spotify-embed">
-           <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3jRa4iOHaJ6yNMtefZtWLh?utm_source=generator&theme=0&si=55dcfb0ba5b440c7" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>
-
+    <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" id="fill-0"></div></div>
+        <div class="progress-bar"><div class="progress-fill" id="fill-1"></div></div>
+        <div class="progress-bar"><div class="progress-fill" id="fill-2"></div></div>
+        <div class="progress-bar"><div class="progress-fill" id="fill-3"></div></div>
+        <div class="progress-bar"><div class="progress-fill" id="fill-4"></div></div>
+        <div class="progress-bar"><div class="progress-fill" id="fill-5"></div></div>
+        <div class="progress-bar"><div class="progress-fill" id="fill-6"></div></div>
     </div>
+
+    <main id="story-container">
+        
+        <section class="slide active" id="slide-0" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);">
+            <h1>Madu, aperte o play abaixo e aproveite.</h1>
+            <p>Isso foi feito com muito amor para você.</p>
+            <button id="start-btn">Começar nossa retrospectiva</button>
+        </section>
+
+        <section class="slide" id="slide-1" style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);">
+            <h2>Bem-vinda ao seu Wrapped de Dia dos Namorados</h2>
+            <p>Esqueça as músicas mais ouvidas. Essa é a retrospectiva do nosso último ano juntos, dos nossos melhores momentos e do motivo pelo qual eu te amo tanto.</p>
+        </section>
+
+        <section class="slide" id="slide-2" style="background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);">
+            <h2>Onde tudo começou...</h2>
+            <p class="highlight-text">Aquele nosso primeiro encontro foi inesquecível. Lembro exatamente de como você estava linda, do frio na barriga e da certeza de que ali começava algo especial...</p>
+        </section>
+
+        <section class="slide" id="slide-3" style="background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%);">
+            <h2>O tempo voa com você</h2>
+            <div class="photo-container">
+                <img src="https://images.unsplash.com/photo-1518199266791-5375a83164ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Nossa Foto">
+            </div>
+            <p>Desde o dia 22/05/2025, já vivemos:</p>
+            <h3 id="time-together">Calculando...</h3>
+        </section>
+
+        <section class="slide" id="slide-4" style="background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%);">
+            <h2>E em todo esse tempo...</h2>
+            <p class="highlight-text">Você se tornou a pessoa mais importante da minha vida. Minha parceira, minha confidente, meu amor.</p>
+        </section>
+
+        <section class="slide" id="slide-5" style="background: linear-gradient(135deg, #13547a 0%, #80d0c7 100%);">
+            <h2>Nossos momentos no Maria Eugenia</h2>
+            <div class="gallery">
+                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Restaurante 1">
+                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Restaurante 2">
+            </div>
+            <p>Onde a gente coleciona sorrisos e boas memórias.</p>
+        </section>
+
+        <section class="slide" id="slide-6" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+            <h2>Temos uma conexão única.</h2>
+            <p>E eu prometo fazer de tudo para manter isso para sempre.</p>
+            <h1 class="final-phrase">Te amo, hoje e sempre.</h1>
+        </section>
+
+    </main>
+
+    <footer class="spotify-footer">
+        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3jRa4iOHaJ6yNMtefZtWLh?utm_source=generator&theme=0&si=55dcfb0ba5b440c7" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </footer>
 
     <script src="script.js"></script>
 </body>
