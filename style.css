@@ -32,7 +32,9 @@ body {
     font-size: 1.5rem;
     opacity: 0; 
     animation: floatUp linear infinite;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
 @keyframes floatUp {
