@@ -1,0 +1,252 @@
+/* Estilos Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #1a1a1a; /* Fundo escuro para destacar o celular */
+    color: #fff;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    user-select: none;
+}
+
+/* Container Principal simulando a tela */
+.wrapped-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    max-height: 800px;
+    /* Degradê inspirado na imagem (magenta/vinho) */
+    background: linear-gradient(180deg, #d4145a 0%, #7a0031 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Barras de Progresso */
+.progress-bars {
+    display: flex;
+    gap: 5px;
+    padding: 20px 15px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #fff;
+    width: 0%;
+    border-radius: 4px;
+}
+
+.progress-fill.active {
+    animation: fillProgress 5s linear forwards;
+}
+
+.progress-fill.completed {
+    width: 100%;
+}
+
+.spotify-embed {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    z-index: 30;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    border-radius: 12px;
+    /* Adicionando uma transição suave caso ele demore um milissegundo a mais para carregar */
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Slides e Navegação */
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 80px 30px 100px; /* Espaço para a barra de progresso e para o player */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.98);
+    transition: all 0.4s ease-in-out;
+    z-index: 5;
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.click-area-left, .click-area-right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    z-index: 20;
+    cursor: pointer;
+}
+.click-area-left { left: 0; }
+.click-area-right { right: 0; }
+
+/* Tipografia Estilizada */
+h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin-bottom: 15px;
+}
+
+.small-text {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-top: 30px;
+}
+
+/* Efeito Neon Amarelo (Glow) */
+.glow-text {
+    color: #fff9d6;
+    text-shadow: 0 0 10px rgba(255, 222, 89, 0.8), 0 0 20px rgba(255, 222, 89, 0.6);
+}
+
+.highlight {
+    font-size: 3rem;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+/* Caixa de Texto Romântica */
+.text-card {
+    font-style: italic;
+    font-size: 1.1rem;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Efeito Polaroid para as Fotos */
+.polaroid {
+    background: #fff;
+    padding: 10px 10px 30px 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.3), 0 10px 20px rgba(0,0,0,0.3);
+    margin: 20px auto;
+    width: 90%;
+    transition: transform 0.3s;
+}
+
+.polaroid img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.tilt-left { transform: rotate(-3deg); }
+.tilt-right { transform: rotate(3deg); }
+
+/* Player de Música Fixo no Rodapé */
+.music-player {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: #fff;
+    border-radius: 15px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 30;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.album-art {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+    border-radius: 8px;
+}
+
+.song-info {
+    flex: 1;
+    color: #333;
+    text-align: left;
+}
+
+.song-info h4 { font-size: 0.9rem; margin: 0; font-weight: 800;}
+.song-info p { font-size: 0.7rem; margin: 0; color: #666; }
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #666;
+    font-size: 1.2rem;
+}
+
+/* Ícones Flutuantes Decorativos */
+.floating-icon {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.6;
+    z-index: 1;
+    animation: float 4s ease-in-out infinite;
+}
+
+.icon-1 { top: 20%; left: 10%; animation-delay: 0s; text-shadow: 0 0 10px #fff;}
+.icon-2 { top: 40%; right: 10%; animation-delay: 1s; color: #ffde59; text-shadow: 0 0 10px #ffde59;}
+.icon-3 { bottom: 30%; left: 15%; animation-delay: 2s; }
+
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(10deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}

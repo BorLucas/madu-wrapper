@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Wrapped - Dia dos Namorados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="wrapped-container" id="main-container">
+        <div class="progress-bars" id="progress-bars"></div>
+
+        <div class="click-area-left" onclick="prevSlide()"></div>
+        <div class="click-area-right" onclick="nextSlide()"></div>
+
+        <div class="floating-icon icon-1">✨</div>
+        <div class="floating-icon icon-2">🎵</div>
+        <div class="floating-icon icon-3">❤️</div>
+
+        <div class="slide active" id="slide-0">
+            <h3>Tudo começou com...</h3>
+            <h1 class="glow-text">NOSSO PRIMEIRO ENCONTRO! ❤️</h1>
+            <p>Pegamos todos os dados do nosso último ano e descobrimos algo incrível.</p>
+            <p class="small-text">(Toque na tela para continuar)</p>
+        </div>
+
+        <div class="slide" id="slide-1">
+            <h1 class="glow-text">Aquele dia mágico ✨</h1>
+            <div class="text-card">
+                "Substitua este texto pela história de vocês. Como foi se ver pela primeira vez, o frio na barriga e o começo de tudo..."
+            </div>
+        </div>
+
+        <div class="slide" id="slide-2">
+            <h3>Desde 22/05/2025...</h3>
+            
+            <div class="polaroid tilt-left">
+                <img src="https://via.placeholder.com/400x400/ff9a9e/ffffff?text=Nossa+Foto+Aqui" alt="Nossa Foto">
+            </div>
+            
+            <p>Já vivemos <span class="glow-text highlight" id="dias-juntos">0</span> dias incríveis.</p>
+            <p>E <strong id="horas-juntas">0</strong> horas que eu guardaria num potinho.</p>
+        </div>
+
+        <div class="slide" id="slide-3">
+            <h3>E as estatísticas não mentem...</h3>
+            <div class="polaroid tilt-right">
+                 <img src="https://via.placeholder.com/400x400/fad0c4/ffffff?text=Foto+Dela+Aqui" alt="Ela">
+            </div>
+            <h1 class="glow-text" style="font-size: 2rem;">Você é a minha escolha número 1, todos os dias.</h1>
+        </div>
+
+        <div class="slide" id="slide-4">
+            <h1 class="glow-text">Nosso cantinho 🍃</h1>
+            <p>Os melhores brindes e risadas no Maria Eugênia.</p>
+            <div class="polaroid">
+                <img src="https://via.placeholder.com/400x400/a1c4fd/ffffff?text=Foto+Maria+Eugenia" alt="Restaurante">
+            </div>
+        </div>
+
+        <div class="slide" id="slide-5">
+            <h3>Isso é só o começo.</h3>
+            <div style="margin-top: 40px; text-align: center;">
+                <h2>Te amo,</h2>
+                <h1 class="glow-text" style="font-size: 3.5rem;">hoje e<br>sempre.</h1>
+            </div>
+        </div>
+
+        <div class="music-player">
+            <div class="album-art"></div>
+            <div class="song-info">
+                <h4>Nossa Música</h4>
+                <p>O Cantor Favorito</p>
+            </div>
+            <div class="player-controls">
+                <span>⏮</span>
+                <span style="font-size: 1.5rem; color: #9b0b4b;">⏸</span>
+                <span>⏭</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
