@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "roleta-img-3.jpeg",
         "roleta-img-4.jpeg",
         "roleta-img-5.jpeg",
+        "roleta-img-6.jpeg",
+        "roleta-img-7.jpeg",
     ];
 
     // Captura o elemento da imagem
