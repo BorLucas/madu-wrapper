@@ -67,6 +67,7 @@ body {
     width: 100%;
 }
 
+/* Player Oficial do Spotify Fixo no Rodapé */
 .spotify-embed {
     position: absolute;
     bottom: 20px;
@@ -75,8 +76,8 @@ body {
     z-index: 30;
     box-shadow: 0 10px 20px rgba(0,0,0,0.5);
     border-radius: 12px;
-    /* Adicionando uma transição suave caso ele demore um milissegundo a mais para carregar */
     animation: fadeIn 1s ease-in-out;
+    height: 18px 
 }
 
 @keyframes fadeIn {
@@ -191,22 +192,6 @@ p {
 
 .tilt-left { transform: rotate(-3deg); }
 .tilt-right { transform: rotate(3deg); }
-
-/* Player de Música Fixo no Rodapé */
-.music-player {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    background: #fff;
-    border-radius: 15px;
-    padding: 10px 15px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    z-index: 30;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
 
 .album-art {
     width: 40px;
