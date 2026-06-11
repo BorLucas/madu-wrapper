@@ -2,16 +2,43 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    /* Adicionando a fonte nova super fofinha */
+    font-family: 'Fredoka', sans-serif;
 }
 
 body {
     background-color: #121212;
     color: white;
-    overflow: hidden; /* Esconde barras de rolagem */
+    overflow: hidden; 
     height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+/* Efeito de corações/estrelas flutuantes no fundo */
+#floating-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Para não atrapalhar os cliques */
+    z-index: 0;
+}
+
+.floating-icon {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.6;
+    animation: floatUp linear infinite;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.7; }
+    100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
 }
 
 /* Barras de Progresso */
@@ -45,7 +72,8 @@ body {
     flex: 1;
     position: relative;
     width: 100%;
-    height: calc(100vh - 160px); /* Desconta o tamanho do footer */
+    height: calc(100vh - 160px);
+    z-index: 1;
 }
 
 .slide {
@@ -62,7 +90,7 @@ body {
     padding: 2rem;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    transition: opacity 0.4s ease, transform 0.4s ease;
     transform: scale(0.95);
 }
 
@@ -73,51 +101,89 @@ body {
     z-index: 2;
 }
 
-/* Tipografia e Elementos Especiais */
-h1 { font-size: 2.5rem; margin-bottom: 1rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
-h2 { font-size: 2rem; margin-bottom: 1.5rem; text-shadow: 1px 1px 5px rgba(0,0,0,0.3); }
-p { font-size: 1.2rem; line-height: 1.6; text-shadow: 1px 1px 4px rgba(0,0,0,0.3); }
-.highlight-text { font-size: 1.5rem; font-weight: bold; }
-.final-phrase { margin-top: 2rem; font-size: 3rem; color: #fff; }
+/* Tipografia Neon e Fofa */
+h1, h2 {
+    font-weight: 600;
+    color: #fff;
+    /* Glow Neon Adicionado */
+    text-shadow: 
+        0 0 5px #fff, 
+        0 0 10px #fff, 
+        0 0 20px #ff80df, 
+        0 0 30px #ff80df;
+}
+
+h1 { font-size: 2.2rem; margin-bottom: 1rem; }
+h2 { font-size: 1.8rem; margin-bottom: 1.5rem; line-height: 1.3;}
+h3 { font-size: 1.5rem; color: #fff; text-shadow: 0 0 10px #ff80df;}
+p { font-size: 1.2rem; line-height: 1.5; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); font-weight: 400; }
+.highlight-text { font-size: 1.4rem; font-weight: 600; }
+.final-phrase { margin-top: 2rem; font-size: 2.8rem; color: #fff; text-shadow: 0 0 10px #fff, 0 0 20px #ff80df, 0 0 40px #ff80df, 0 0 80px #e60073; }
 
 /* Botão da primeira tela */
 #start-btn {
     margin-top: 30px;
     padding: 15px 30px;
     font-size: 1.2rem;
-    font-weight: bold;
-    color: #121212;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    color: #ff3399;
     background-color: white;
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    transition: transform 0.2s;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    transition: transform 0.2s, box-shadow 0.2s;
+    z-index: 10;
 }
-#start-btn:hover { transform: scale(1.05); }
+#start-btn:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 255, 255, 1); }
 
-/* Fotos */
-.photo-container img {
-    width: 250px;
-    height: 250px;
+/* Estilo de Foto Polaroid Fofinha */
+.polaroid {
+    background: white;
+    padding: 10px 10px 35px 10px; /* Margem branca grande embaixo */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    max-width: 80vw; /* Ajuste para mobile */
+}
+
+.polaroid-tilt-left { transform: rotate(-4deg); }
+.polaroid-tilt-right { transform: rotate(4deg); }
+
+.polaroid img {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    aspect-ratio: 1/1; /* Garante que a foto fique quadradinha */
     object-fit: cover;
-    border-radius: 20px;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    border-radius: 2px;
+}
+
+.polaroid-text {
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    text-align: center;
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 600;
+    left: 0;
+    text-shadow: none; /* Remove o neon do texto da foto */
 }
 
 .gallery {
     display: flex;
-    gap: 15px;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
     margin-bottom: 1.5rem;
 }
 
-.gallery img {
-    width: 160px;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+.gallery .polaroid img {
+    max-width: 140px;
+    aspect-ratio: 3/4; /* Fotos verticais para a galeria */
 }
 
 /* Rodapé do Spotify */
@@ -126,5 +192,5 @@ p { font-size: 1.2rem; line-height: 1.6; text-shadow: 1px 1px 4px rgba(0,0,0,0.3
     width: 100%;
     background-color: #000;
     padding: 0;
-    z-index: 10;
+    z-index: 100;
 }
