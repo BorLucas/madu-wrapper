@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     // ---- CRIAR FUNDO FOFO GLOBAL (Corações e Estrelas) ----
     const bgContainer = document.getElementById("floating-bg");
-    const emojis = ["💙", "✨", "💖", "💫", "💕", "🌟", "🌸", "🤍"];
+    const emojis = ["♡"];
     
-    // Cria 30 ícones flutuantes
     for (let i = 0; i < 30; i++) {
         let el = document.createElement("div");
         el.className = "floating-icon";
@@ -16,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ---- CÁLCULO DE TEMPO JUNTOS ----
-    // Data de início: 22/05/2025
     const startDate = new Date('2025-05-22T00:00:00');
     const today = new Date();
     
@@ -31,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ---- LÓGICA DE PASSAR OS SLIDES (STORIES) ----
     const slides = document.querySelectorAll(".slide");
-    const TIME_PER_SLIDE = 9000; // 9 segundos por slide
+    const TIME_PER_SLIDE = 9000; 
     let currentSlide = 0;
     let slideTimer;
     let progressAnimation;
@@ -47,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         goToSlide(1); 
     });
 
-    // Navegação por Toque/Clique na Tela (Direita avança, Esquerda volta)
+    // 1. Navegação por Toque/Clique na Tela 
     storyContainer.addEventListener("click", (e) => {
         if (currentSlide === 0) return; 
 
@@ -55,13 +53,33 @@ document.addEventListener("DOMContentLoaded", () => {
         const screenWidth = window.innerWidth;
 
         if (clickX > screenWidth / 2) {
-            // Tocou na Direita -> Próximo
+            // Avançar
             if (currentSlide < slides.length - 1) {
                 fillProgress(currentSlide, 100);
                 goToSlide(currentSlide + 1);
             }
         } else {
-            // Tocou na Esquerda -> Voltar
+            // Voltar
+            if (currentSlide > 1) { 
+                fillProgress(currentSlide, 0); 
+                fillProgress(currentSlide - 1, 0); 
+                goToSlide(currentSlide - 1);
+            }
+        }
+    });
+
+    // 2. Navegação pelas Setas do Teclado (NOVO)
+    document.addEventListener("keydown", (e) => {
+        if (currentSlide === 0) return; // Não permite usar setas na tela inicial de "Play"
+
+        if (e.key === "ArrowRight") {
+            // Seta para a Direita -> Avançar
+            if (currentSlide < slides.length - 1) {
+                fillProgress(currentSlide, 100);
+                goToSlide(currentSlide + 1);
+            }
+        } else if (e.key === "ArrowLeft") {
+            // Seta para a Esquerda -> Voltar
             if (currentSlide > 1) { 
                 fillProgress(currentSlide, 0); 
                 fillProgress(currentSlide - 1, 0); 
