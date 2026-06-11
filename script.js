@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const timeElement = document.getElementById("time-together");
     if (timeElement) {
-        timeElement.innerHTML = `${diffDays} dias<br><span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${diffHours.toLocaleString('pt-BR')} horas juntos)</span>`;
+        timeElement.innerHTML = `${diffHours.toLocaleString('pt-BR')} horas juntos<span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${diffDays} dias)</span>`;
     }
 
     // ---- LÓGICA DE PASSAR OS SLIDES (STORIES) ----
