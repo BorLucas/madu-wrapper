@@ -1,5 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // ---- CRIAR FUNDO FOFO GLOBAL (Apenas Corações Outline) ----
+    // ---- CONFIGURAÇÃO DAS FOTOS ALEATÓRIAS (SLIDE 3) ----
+    // 1. Defina aqui a pasta onde estão as fotos (relativo ao index.html)
+    const folderPath = "src/"; 
+
+    // 2. Coloque aqui o nome exato dos arquivos que você salvou na pasta src
+    const randomPhotosList = [
+        "roleta-img-1.jpeg",
+        "roleta-img-2.jpeg",
+        "roleta-img-3.jpeg",
+        "roleta-img-4.jpeg",
+        "roleta-img-5.jpeg",
+    ];
+
+    // Captura o elemento da imagem
+    const polaroidImgElement = document.getElementById('polaroid-image');
+
+    // Função para escolher e definir uma foto aleatória
+    function setRandomPolaroid() {
+        if (polaroidImgElement && randomPhotosList.length > 0) {
+            // Escolhe um índice aleatório da lista
+            const randomIndex = Math.floor(Math.random() * randomPhotosList.length);
+            // Define o novo src da imagem: pasta + nome do arquivo
+            polaroidImgElement.src = folderPath + randomPhotosList[randomIndex];
+        }
+    }
+
+
+    // ---- CRIAR FUNDO FOFO GLOBAL (Corações Outline) ----
     const bgContainer = document.getElementById("floating-bg");
     const emojis = ["♡"]; 
     
@@ -15,18 +42,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ---- PALETA DE FUNDOS PARA CADA SLIDE ----
-    // Aqui você pode personalizar os gradientes de cada página
     const slideBackgrounds = [
         "linear-gradient(135deg, #1e3c72 0%, #2a5298 40%, #ff7eb3 100%)", // Slide 0: Play
-        "linear-gradient(135deg, #141e30 0%, #243b55 60%, #fbc2eb 100%)", // Slide 1: Introdução (Mais noturno com rosa pastel)
-        "linear-gradient(135deg, #2980b9 0%, #6dd5fa 50%, #ff9a9e 100%)", // Slide 2: Primeiro Encontro (Azul céu aberto com rosa)
-        "linear-gradient(135deg, #4b6cb7 0%, #182848 70%, #ff7eb3 100%)", // Slide 3: Tempo Juntos (Azul clássico e neon)
-        "linear-gradient(135deg, #09203f 0%, #537895 60%, #ffb199 100%)", // Slide 4: Pessoa Importante (Tons mais elegantes com toque coral)
-        "linear-gradient(135deg, #1e3c72 0%, #2a5298 30%, #fbc2eb 100%)", // Slide 5: Restaurante (Variante do primeiro, mais suave)
-        "linear-gradient(135deg, #0f2027 0%, #203a43 50%, #e60073 100%)"  // Slide 6: Encerramento (Profundo, terminando com o rosa forte do amor)
+        "linear-gradient(135deg, #141e30 0%, #243b55 60%, #fbc2eb 100%)", // Slide 1: Introdução
+        "linear-gradient(135deg, #2980b9 0%, #6dd5fa 50%, #ff9a9e 100%)", // Slide 2: Primeiro Encontro
+        "linear-gradient(135deg, #4b6cb7 0%, #182848 70%, #ff7eb3 100%)", // Slide 3: Tempo Juntos
+        "linear-gradient(135deg, #09203f 0%, #537895 60%, #ffb199 100%)", // Slide 4: Pessoa Importante
+        "linear-gradient(135deg, #1e3c72 0%, #2a5298 30%, #fbc2eb 100%)", // Slide 5: Restaurante
+        "linear-gradient(135deg, #0f2027 0%, #203a43 50%, #e60073 100%)"  // Slide 6: Encerramento
     ];
 
-    // Garante que o fundo inicial já carregue correto
     document.body.style.background = slideBackgrounds[0];
 
     // ---- CÁLCULO DE TEMPO JUNTOS ----
@@ -39,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const timeElement = document.getElementById("time-together");
     if (timeElement) {
-        timeElement.innerHTML = `${diffHours.toLocaleString('pt-BR')} horas juntos<span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${diffDays} dias)</span>`;
+        timeElement.innerHTML = `${diffDays} dias<br><span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${diffHours.toLocaleString('pt-BR')} horas juntos)</span>`;
     }
 
     // ---- LÓGICA DE PASSAR OS SLIDES (STORIES) ----
@@ -53,14 +78,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const startBtn = document.getElementById("start-btn");
     const storyContainer = document.getElementById("story-container");
 
-    // Iniciar retrospectiva
     startBtn.addEventListener("click", (e) => {
         e.stopPropagation(); 
         fillProgress(0, 100);
         goToSlide(1); 
     });
 
-    // 1. Navegação por Toque/Clique na Tela 
     storyContainer.addEventListener("click", (e) => {
         if (currentSlide === 0) return; 
 
@@ -81,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 2. Navegação pelas Setas do Teclado
     document.addEventListener("keydown", (e) => {
         if (currentSlide === 0) return; 
 
@@ -104,8 +126,13 @@ document.addEventListener("DOMContentLoaded", () => {
         currentSlide = index;
         slides[currentSlide].classList.add("active");
         
-        // A MÁGICA ACONTECE AQUI: Altera o fundo da tela instantaneamente
         document.body.style.background = slideBackgrounds[currentSlide];
+
+        // ---- NOVA LÓGICA AQUI ----
+        // Se o slide destino for o 3 (índice 3), escolhemos uma foto aleatória
+        if (currentSlide === 3) {
+            setRandomPolaroid();
+        }
         
         startSlideProgress();
     }
