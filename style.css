@@ -1,235 +1,140 @@
-/* Estilos Globais */
+/* Estilos Globais e Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
 }
 
-body {
-    background-color: #1a1a1a; /* Fundo escuro para destacar o celular */
+body, html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden; /* Esconde a barra de rolagem */
+    background-color: #d4145a; /* Cor de fundo magenta */
+    font-family: 'Lato', sans-serif;
     color: #fff;
-    overflow: hidden;
+}
+
+/* Contêiner Principal da Página Inteira */
+.page-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: space-between; /* Empurra o conteúdo pro meio e o Spotify pro final */
     height: 100vh;
-    user-select: none;
-}
-
-/* Container Principal simulando a tela */
-.wrapped-container {
+    width: 100%;
     position: relative;
-    width: 100%;
-    max-width: 400px;
-    height: 100%;
-    max-height: 800px;
-    /* Degradê inspirado na imagem (magenta/vinho) */
-    background: linear-gradient(180deg, #d4145a 0%, #7a0031 100%);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-}
-
-/* Barras de Progresso */
-.progress-bars {
-    display: flex;
-    gap: 5px;
-    padding: 20px 15px;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 10;
-}
-
-.progress-bar {
-    flex: 1;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: #fff;
-    width: 0%;
-    border-radius: 4px;
-}
-
-.progress-fill.active {
-    animation: fillProgress 5s linear forwards;
-}
-
-.progress-fill.completed {
-    width: 100%;
-}
-
-/* Player Oficial do Spotify Fixo no Rodapé */
-.spotify-embed {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    z-index: 30;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-    border-radius: 12px;
-    animation: fadeIn 1s ease-in-out;
-    height: 18px 
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Slides e Navegação */
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 80px 30px 100px; /* Espaço para a barra de progresso e para o player */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    opacity: 0;
-    visibility: hidden;
-    transform: scale(0.98);
-    transition: all 0.4s ease-in-out;
     z-index: 5;
 }
 
-.slide.active {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1);
+/* 1. Área de Conteúdo Central */
+.content-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Ocupa o espaço livre verticalmente */
+    padding: 60px 30px;
+    text-align: center;
+    position: relative;
 }
 
-.click-area-left, .click-area-right {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 50%;
-    z-index: 20;
-    cursor: pointer;
-}
-.click-area-left { left: 0; }
-.click-area-right { right: 0; }
-
-/* Tipografia Estilizada */
-h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+/* 2. Área do Rodapé (Spotify) */
+.spotify-footer {
+    height: 100px;
+    width: 100%;
+    background-color: #121212; /* Cor preta padrão do Spotify */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.5);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-h1 {
-    font-size: 2.2rem;
-    font-weight: 800;
+.spotify-footer iframe {
+    max-width: 400px;
+    width: 100%;
+    height: 80px;
+    border-radius: 12px;
+    border: none;
+}
+
+/* Tipografia e Efeitos Visuais */
+.headline {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 900;
     line-height: 1.1;
     margin-bottom: 20px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-p {
-    font-size: 1.1rem;
-    line-height: 1.4;
-    margin-bottom: 15px;
+.sub-headline {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
 }
 
-.small-text {
-    font-size: 0.9rem;
-    opacity: 0.8;
-    margin-top: 30px;
-}
-
-/* Efeito Neon Amarelo (Glow) */
+/* Efeito Neon Amarelo */
 .glow-text {
     color: #fff9d6;
     text-shadow: 0 0 10px rgba(255, 222, 89, 0.8), 0 0 20px rgba(255, 222, 89, 0.6);
 }
 
-.highlight {
-    font-size: 3rem;
-    display: inline-block;
-    margin: 10px 0;
-}
-
-/* Caixa de Texto Romântica */
+/* Caixa de Texto Translúcida */
 .text-card {
     font-style: italic;
     font-size: 1.1rem;
+    line-height: 1.4;
     background: rgba(255, 255, 255, 0.15);
-    padding: 20px;
-    border-radius: 15px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255,255,255,0.3);
+    padding: 25px 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    margin-top: 20px;
+    max-width: 350px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Efeito Polaroid para as Fotos */
-.polaroid {
-    background: #fff;
-    padding: 10px 10px 30px 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.3), 0 10px 20px rgba(0,0,0,0.3);
-    margin: 20px auto;
-    width: 90%;
-    transition: transform 0.3s;
-}
-
-.polaroid img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 5px;
-}
-
-.tilt-left { transform: rotate(-3deg); }
-.tilt-right { transform: rotate(3deg); }
-
-.album-art {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-    border-radius: 8px;
-}
-
-.song-info {
-    flex: 1;
-    color: #333;
-    text-align: left;
-}
-
-.song-info h4 { font-size: 0.9rem; margin: 0; font-weight: 800;}
-.song-info p { font-size: 0.7rem; margin: 0; color: #666; }
-
-.player-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #666;
-    font-size: 1.2rem;
+.highlight-numbers {
+    font-size: 4rem;
+    display: inline-block;
+    margin: 5px 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
 }
 
 /* Ícones Flutuantes Decorativos */
 .floating-icon {
     position: absolute;
-    font-size: 1.5rem;
-    opacity: 0.6;
-    z-index: 1;
+    opacity: 0.7;
     animation: float 4s ease-in-out infinite;
 }
 
-.icon-1 { top: 20%; left: 10%; animation-delay: 0s; text-shadow: 0 0 10px #fff;}
-.icon-2 { top: 40%; right: 10%; animation-delay: 1s; color: #ffde59; text-shadow: 0 0 10px #ffde59;}
-.icon-3 { bottom: 30%; left: 15%; animation-delay: 2s; }
+.icon-heart { 
+    bottom: 15%; 
+    left: 15%; 
+    color: #ff0a54; 
+    font-size: 2.5rem;
+}
+.icon-star { 
+    top: 15%; 
+    left: 20%; 
+    color: #ffde59; 
+    font-size: 1.8rem;
+    text-shadow: 0 0 15px rgba(255, 222, 89, 0.8);
+}
+.icon-music { 
+    top: 25%; 
+    right: 15%; 
+    color: #fff; 
+    font-size: 1.5rem; 
+    opacity: 0.4;
+}
 
+/* Animação suave para os ícones */
 @keyframes float {
     0% { transform: translateY(0px) rotate(0deg); }
     50% { transform: translateY(-15px) rotate(10deg); }
