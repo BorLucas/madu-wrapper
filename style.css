@@ -202,3 +202,8 @@ p { font-size: 1.2rem; line-height: 1.5; text-shadow: 1px 1px 4px rgba(0,0,0,0.6
     z-index: 100; 
     position: relative;
 }
+
+.slide h2, .slide p, .highlight-text {
+    position: relative;
+    z-index: 10; /* Sempre na frente das polaroids */
+}
