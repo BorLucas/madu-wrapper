@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const currentDays = Math.floor(easeOutProgress * targetDays);
                 const currentHours = Math.floor(easeOutProgress * targetHours);
 
-                timeElement.innerHTML = `${currentDays} dias<br><span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${currentHours.toLocaleString('pt-BR')} horas juntos)</span>`;
+                timeElement.innerHTML = `${currentHours.toLocaleString('pt-BR')} horas<br><span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${currentDays} dias juntos)</span>`;
 
                 if (progress < 1) {
                     window.requestAnimationFrame(step); // Continua animando
