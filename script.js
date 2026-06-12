@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
         startSlideProgress();
     }
 
-    unction startSlideProgress() {
+    function startSlideProgress() {
         clearInterval(progressAnimation);
         clearTimeout(slideTimer);
 
