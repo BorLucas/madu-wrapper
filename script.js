@@ -20,22 +20,16 @@ document.addEventListener("DOMContentLoaded", () => {
         img.src = folderPath + photo;
         preloadedImages.push(img);
     });
-    // ---------------------------------------------
 
-    // Captura o elemento da imagem
     const polaroidImgElement = document.getElementById('polaroid-image');
 
-    // Função para escolher e definir uma foto aleatória
     function setRandomPolaroid() {
         if (polaroidImgElement && randomPhotosList.length > 0) {
             const randomIndex = Math.floor(Math.random() * randomPhotosList.length);
-            // Agora, quando isso rodar, a foto já estará salva no "cache" do celular dela!
             polaroidImgElement.src = folderPath + randomPhotosList[randomIndex];
         }
     }
 
-
-    // ---- CRIAR FUNDO FOFO GLOBAL (Corações Outline) ----
     const bgContainer = document.getElementById("floating-bg");
     const emojis = ["♡"]; 
     
@@ -50,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
         bgContainer.appendChild(el);
     }
 
-    // ---- PALETA DE FUNDOS PARA CADA SLIDE ----
     const slideBackgrounds = [
         "linear-gradient(135deg, #1e3c72 0%, #2a5298 40%, #ff7eb3 100%)", // Slide 0: Play
         "linear-gradient(135deg, #141e30 0%, #243b55 60%, #fbc2eb 100%)", // Slide 1: Introdução
