@@ -1,12 +1,10 @@
 let spotifyPlayerController;
 
-// Função que o Spotify chama automaticamente quando a API dele carrega
 window.onSpotifyIframeApiReady = (IFrameAPI) => {
     const element = document.getElementById('spotify-embed');
     const options = {
         width: '100%',
         height: '80',
-        hidden: true,
         uri: 'spotify:track:4pG8lbKPKkfGSniMXxZTM7' 
     };
     const callback = (EmbedController) => {
@@ -74,15 +72,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.body.style.background = slideBackgrounds[0];
 
-    // ---- NOVO: LÓGICA DO CONTADOR ANIMADO (SLIDE 3) ----
     const startDate = new Date('2025-05-22T00:00:00');
-    let counterTimeout; // Variável para controlar o timer do "Calculando..."
+    let counterTimeout;
 
     function animateTimeTogether() {
         const timeElement = document.getElementById("time-together");
         if (!timeElement) return;
-
-        // 1. Zera qualquer animação que estava rodando antes e mostra a mensagem de suspense
         clearTimeout(counterTimeout);
         timeElement.innerHTML = "Calculando...";
 
@@ -91,39 +86,33 @@ document.addEventListener("DOMContentLoaded", () => {
         const targetDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
         const targetHours = Math.floor(diffTime / (1000 * 60 * 60));
 
-        // 2. Espera 1.5 segundos no "Calculando..." e depois inicia a contagem
         counterTimeout = setTimeout(() => {
-            const animationDuration = 2000; // O contador vai subir durante 2 segundos
+            const animationDuration = 2500;
             const startTimestamp = performance.now();
 
             function step(timestamp) {
-                // Calcula o progresso de 0 a 1
                 let progress = (timestamp - startTimestamp) / animationDuration;
                 if (progress > 1) progress = 1;
 
-                // Efeito "Ease Out" (começa rápido e freia no final para ficar mais bonito)
                 const easeOutProgress = 1 - Math.pow(1 - progress, 3);
 
                 const currentDays = Math.floor(easeOutProgress * targetDays);
                 const currentHours = Math.floor(easeOutProgress * targetHours);
 
-                timeElement.innerHTML = `${currentHours.toLocaleString('pt-BR')} horas<br><span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${currentDays} dias)</span><br>juntos`;
+                timeElement.innerHTML = `${currentHours.toLocaleString('pt-BR')} horas<span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${currentDays} dias)</span><br>juntos`;
 
                 if (progress < 1) {
-                    window.requestAnimationFrame(step); // Continua animando
+                    window.requestAnimationFrame(step);
                 } else {
-                    // Garante que termina exatamente no número correto
-                    timeElement.innerHTML = `${targetHours.toLocaleString('pt-BR')} horas<br><span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${targetDays} dias)</span><br>juntos`;
+                    timeElement.innerHTML = `${targetHours.toLocaleString('pt-BR')} horas<span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${targetDays} dias)</span><br>juntos`;
                 }
             }
             
-            // Inicia o motor de animação visual do navegador
             window.requestAnimationFrame(step);
-        }, 1500); // 1500ms = 1.5 segundos de suspense
+        }, 1500);
     }
 
 
-    // ---- LÓGICA DE PASSAR OS SLIDES (STORIES) ----
     const slides = document.querySelectorAll(".slide");
     const TIME_PER_SLIDE = 9000; 
     let currentSlide = 0;
@@ -187,10 +176,9 @@ document.addEventListener("DOMContentLoaded", () => {
         
         document.body.style.background = slideBackgrounds[currentSlide];
 
-        // AÇÕES ESPECÍFICAS DO SLIDE 3
         if (currentSlide === 3) {
-            setRandomPolaroid();    // 1. Troca a foto aleatória
-            animateTimeTogether();  // 2. Inicia o suspense e a animação dos números
+            setRandomPolaroid();
+            animateTimeTogether();
         }
         
         startSlideProgress();

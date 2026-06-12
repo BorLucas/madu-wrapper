@@ -71,12 +71,11 @@ body {
     transition: width 0.1s linear; 
 }
 
-/* Slides */
 #story-container {
     flex: 1;
     position: relative;
     width: 100%;
-    height: calc(100vh - 88px); 
+    height: 100vh;
     z-index: 1; 
 }
 
@@ -146,7 +145,6 @@ p { font-size: 1.2rem; line-height: 1.5; text-shadow: 1px 1px 4px rgba(0,0,0,0.6
 }
 #start-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
 
-/* Estilo de Foto Polaroid */
 .polaroid {
     background: white;
     padding: 10px 10px 35px 10px;
@@ -155,10 +153,39 @@ p { font-size: 1.2rem; line-height: 1.5; text-shadow: 1px 1px 4px rgba(0,0,0,0.6
     display: inline-block;
     position: relative;
     max-width: 80vw;
+    
+    /* Variável base que a animação vai usar para saber onde parar */
+    --base-rotation: 0deg; 
+    
+    /* Começa invisível; a animação vai trazê-la para a tela */
+    opacity: 0; 
 }
 
-.polaroid-tilt-left { transform: rotate(-4deg); }
-.polaroid-tilt-right { transform: rotate(4deg); }
+/* As inclinações agora definem a variável base */
+.polaroid-tilt-left { --base-rotation: -4deg; }
+.polaroid-tilt-right { --base-rotation: 4deg; }
+
+/* Quando o slide aparece, dispara a animação de Pulo/Balanço nas fotos dele */
+.slide.active .polaroid {
+    /* O 'cubic-bezier' cria o efeito de mola (vai além do tamanho e volta) */
+    animation: polaroidPopIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* A MÁGICA: A foto vem de baixo, gira passando do ponto, e estabiliza */
+@keyframes polaroidPopIn {
+    0% {
+        opacity: 0;
+        transform: translateY(60px) scale(0.6) rotate(calc(var(--base-rotation) - 15deg));
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.05) rotate(calc(var(--base-rotation) + 5deg));
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(var(--base-rotation));
+    }
+}
 
 .polaroid img {
     width: 100%;
@@ -181,29 +208,60 @@ p { font-size: 1.2rem; line-height: 1.5; text-shadow: 1px 1px 4px rgba(0,0,0,0.6
     text-shadow: none;
 }
 
+/* ---- GALERIA DE FOTOS (Para slides com 2 imagens) ---- */
 .gallery {
     display: flex;
-    gap: 10px;
     justify-content: center;
-    flex-wrap: wrap;
+    align-items: center;
     margin-bottom: 1.5rem;
+    position: relative;
+    width: 100%;
+}
+
+.gallery .polaroid {
+    width: 45%; 
+    max-width: 180px; 
+    margin: 0 -5%; 
 }
 
 .gallery .polaroid img {
-    max-width: 130px;
+    width: 100%;
     aspect-ratio: 3/4;
+    object-fit: cover;
+    max-height: 35vh; 
+}
+
+/* Foto da esquerda: cai primeiro */
+.gallery .polaroid:nth-child(1) {
+    --base-rotation: -10deg;
+    z-index: 1;
+    animation-delay: 0.1s; /* Começa quase na hora */
+}
+
+/* Foto da direita: cai logo em seguida (efeito cascata) */
+.gallery .polaroid:nth-child(2) {
+    --base-rotation: 8deg;
+    z-index: 2;
+    animation-delay: 0.35s; /* Espera um terço de segundo pra cair */
+}
+
+/* Bônus: O toque continua funcionando com a nova variável! */
+.gallery .polaroid:active {
+    z-index: 10;
+    transform: scale(1.08) rotate(var(--base-rotation)) !important;
 }
 
 .spotify-footer {
-    height: 80px; /* Mude de 152px para 80px */
-    width: 100%;
-    background-color: #000;
-    padding: 0;
-    z-index: 100; 
-    position: relative;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none; 
+    overflow: hidden;
+    bottom: 0;
 }
 
 .slide h2, .slide p, .highlight-text {
     position: relative;
-    z-index: 10; /* Sempre na frente das polaroids */
+    z-index: 10;
 }
