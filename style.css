@@ -170,19 +170,20 @@ p { font-size: 1.2rem; line-height: 1.5; text-shadow: 1px 1px 4px rgba(0,0,0,0.6
     animation: polaroidPopIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-/* A MÁGICA: A foto vem de baixo, gira passando do ponto, e estabiliza */
+/* A MÁGICA: Atualizamos a animação para aceitar a variável --base-x */
 @keyframes polaroidPopIn {
     0% {
         opacity: 0;
-        transform: translateY(60px) scale(0.6) rotate(calc(var(--base-rotation) - 15deg));
+        /* Usa o var(--base-x) para respeitar o lado que a foto deve ir */
+        transform: translate(var(--base-x, 0), 60px) scale(0.6) rotate(calc(var(--base-rotation) - 15deg));
     }
     60% {
         opacity: 1;
-        transform: translateY(-10px) scale(1.05) rotate(calc(var(--base-rotation) + 5deg));
+        transform: translate(var(--base-x, 0), -10px) scale(1.05) rotate(calc(var(--base-rotation) + 5deg));
     }
     100% {
         opacity: 1;
-        transform: translateY(0) scale(1) rotate(var(--base-rotation));
+        transform: translate(var(--base-x, 0), 0) scale(1) rotate(var(--base-rotation));
     }
 }
 
@@ -207,54 +208,56 @@ p { font-size: 1.2rem; line-height: 1.5; text-shadow: 1px 1px 4px rgba(0,0,0,0.6
     text-shadow: none;
 }
 
-/* ---- GALERIA DE FOTOS (Para slides com 2 imagens) ---- */
+/* ---- GALERIA DE FOTOS (EMPILHAMENTO DIAGONAL) ---- */
 .gallery {
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Coloca uma embaixo da outra */
     align-items: center;
-    margin-bottom: 1.5rem;
-    position: relative;
     width: 100%;
+    margin-bottom: 1.5rem;
 }
 
 .gallery .polaroid {
-    width: 45%; 
-    max-width: 180px; 
-    margin: 0 -5%; 
+    width: 55%; 
+    max-width: 170px; /* Mantém um tamanho excelente */
+    margin: 0; 
 }
 
 .gallery .polaroid img {
     width: 100%;
     aspect-ratio: 3/4;
     object-fit: cover;
-    max-height: 35vh; 
 }
 
-/* Foto da esquerda: cai primeiro */
+/* Foto 1: Fica por baixo, vai para a esquerda */
 .gallery .polaroid:nth-child(1) {
-    --base-rotation: -10deg;
+    --base-x: -25%; /* Puxa 25% para a esquerda */
+    --base-rotation: -8deg;
     z-index: 1;
-    animation-delay: 0.15s; /* Um leve respiro antes de começar */
+    animation-delay: 0.15s;
 }
 
-/* Foto da direita: aumenta o tempo do efeito cascata (de 0.35s para 0.5s) */
+/* Foto 2: Fica por cima, vai para a direita e sobe cobrindo só a metade inferior */
 .gallery .polaroid:nth-child(2) {
-    --base-rotation: 8deg;
+    --base-x: 25%; /* Puxa 25% para a direita */
+    --base-rotation: 6deg;
     z-index: 2;
-    animation-delay: 0.5s; 
+    margin-top: -45%; /* Puxa a foto para cima, revelando toda a metade de cima da Foto 1 */
+    animation-delay: 0.5s;
 }
 
-/* Bônus: O toque continua funcionando com a nova variável! */
+/* Bônus: O toque (para trazer a foto pra frente) agora respeita a nova posição! */
 .gallery .polaroid:active {
     z-index: 10;
-    transform: scale(1.08) rotate(var(--base-rotation)) !important;
+    transform: translate(var(--base-x, 0), 0) scale(1.08) rotate(var(--base-rotation)) !important;
 }
 
+/* Rodapé do Spotify */
 .spotify-footer {
     position: absolute;
     width: 1px;
     height: 1px;
-    opacity: 0;
+    opacity: 0; 
     pointer-events: none; 
     overflow: hidden;
     bottom: 0;
