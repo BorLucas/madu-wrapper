@@ -16,7 +16,6 @@ window.onSpotifyIframeApiReady = (IFrameAPI) => {
 document.addEventListener("DOMContentLoaded", () => {
     // ---- CONFIGURAÇÃO DAS FOTOS ALEATÓRIAS (SLIDE 3) ----
     const folderPath = "src/"; 
-
     const randomPhotosList = [
         "roleta-img-1.jpeg",
         "roleta-img-2.jpeg",
@@ -27,13 +26,39 @@ document.addEventListener("DOMContentLoaded", () => {
         "roleta-img-7.jpeg",
     ];
 
-    // ---- PRÉ-CARREGAMENTO DAS IMAGENS ----
-    const preloadedImages = [];
+
     randomPhotosList.forEach(photo => {
         const img = new Image();
         img.src = folderPath + photo;
-        preloadedImages.push(img);
     });
+
+    function buildPhotoStack() {
+        const stackContainer = document.getElementById('polaroid-stack');
+        if (!stackContainer) return;
+        
+        stackContainer.innerHTML = ""; // Limpa a pilha anterior
+
+        randomPhotosList.forEach((photo, index) => {
+            const polaroid = document.createElement('div');
+            polaroid.className = 'polaroid-stack-item';
+            
+            // Cria um visual "bagunçado natural"
+            const randomRot = (Math.random() * 20 - 10).toFixed(2); // entre -10 e 10 graus
+            const offsetX = (Math.random() * 40 - 20).toFixed(2);   // entre -20 e 20 px
+            const offsetY = (index * -5); // Cada nova foto sobe um pouquinho
+
+            polaroid.style.setProperty('--rot', `${randomRot}deg`);
+            polaroid.style.setProperty('--offX', `${offsetX}px`);
+            polaroid.style.setProperty('--offY', `${offsetY}px`);
+            polaroid.style.zIndex = index;
+            
+            // Cada foto demora um pouco mais que a anterior para cair na pilha
+            polaroid.style.animationDelay = `${index * 0.4}s`;
+
+            polaroid.innerHTML = `<img src="${folderPath}${photo}">`;
+            stackContainer.appendChild(polaroid);
+        });
+    }
 
     const polaroidImgElement = document.getElementById('polaroid-image');
 
@@ -175,9 +200,10 @@ document.addEventListener("DOMContentLoaded", () => {
         
         document.body.style.background = slideBackgrounds[currentSlide];
 
+        // AÇÕES ESPECÍFICAS DO SLIDE 3
         if (currentSlide === 3) {
-            setRandomPolaroid();
-            animateTimeTogether();
+            buildPhotoStack();      // Monta a pilha 3D
+            animateTimeTogether();  // Inicia o contador
         }
         
         startSlideProgress();
