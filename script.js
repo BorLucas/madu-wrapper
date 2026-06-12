@@ -60,6 +60,73 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    function startFinalSequence() {
+        const lines = [
+            document.getElementById('line-1'),
+            document.getElementById('line-2'),
+            document.getElementById('line-3')
+        ];
+        
+        const popContainer = document.getElementById('photo-pop-container');
+        popContainer.innerHTML = ""; // Limpa se ela voltar ao slide
+
+        // 1. Aparece as frases com intervalo
+        lines.forEach((line, index) => {
+            setTimeout(() => {
+                line.classList.add('show');
+            }, index * 2000); // Aparece uma frase a cada 2 segundos
+        });
+
+        // 2. Começa a "pipocar" as fotos após a segunda frase
+        setTimeout(() => {
+            // Lista de todas as fotos que você usou no projeto
+            const allPhotos = [
+                "src/first-date-1.jpeg",
+                "src/first-date-2.jpeg",
+                "src/roleta-img-1.jpeg",
+                "src/roleta-img-2.jpeg",
+                "src/roleta-img-3.jpeg",
+                "src/roleta-img-4.jpeg",
+                "src/roleta-img-5.jpeg",
+                "src/roleta-img-6.jpeg",
+                "src/roleta-img-7.jpeg",
+                "src/maria-eugenia-1.jpeg",
+                "src/maria-eugenia-2.jpeg",
+            ];
+
+            let photoCount = 0;
+            const maxPhotos = 11; 
+
+            const popInterval = setInterval(() => {
+                if (photoCount >= maxPhotos) {
+                    clearInterval(popInterval);
+                    return;
+                }
+
+                const randomPhoto = allPhotos[Math.floor(Math.random() * allPhotos.length)];
+                createPoppingPhoto(randomPhoto, popContainer);
+                photoCount++;
+            }, 500);
+        }, 3000);
+    }
+
+    function createPoppingPhoto(src, container) {
+        const photoDiv = document.createElement('div');
+        photoDiv.className = 'popping-photo';
+        
+        // Posições aleatórias na tela (evitando ficar muito nas bordas)
+        const top = Math.random() * 70 + 10; 
+        const left = Math.random() * 70 + 10;
+        const rotation = Math.random() * 40 - 20;
+
+        photoDiv.style.top = `${top}%`;
+        photoDiv.style.left = `${left}%`;
+        photoDiv.style.setProperty('--r', `${rotation}deg`);
+
+        photoDiv.innerHTML = `<img src="${src}">`;
+        container.appendChild(photoDiv);
+    }
+
     const polaroidImgElement = document.getElementById('polaroid-image');
 
     function setRandomPolaroid() {
@@ -69,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // ---- CRIAR FUNDO FOFO GLOBAL (Corações Outline) ----
+
     const bgContainer = document.getElementById("floating-bg");
     const emojis = ["♡"]; 
     
@@ -200,10 +267,13 @@ document.addEventListener("DOMContentLoaded", () => {
         
         document.body.style.background = slideBackgrounds[currentSlide];
 
-        // AÇÕES ESPECÍFICAS DO SLIDE 3
         if (currentSlide === 3) {
-            buildPhotoStack();      // Monta a pilha 3D
-            animateTimeTogether();  // Inicia o contador
+            if(typeof buildPhotoStack === 'function') buildPhotoStack();
+            if(typeof animateTimeTogether === 'function') animateTimeTogether();
+        }
+        
+        if (currentSlide === 6) {
+            startFinalSequence();
         }
         
         startSlideProgress();
@@ -218,10 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return; 
         }
 
-        // ---- LÓGICA DE TEMPO DINÂMICO ----
-        // Verifica se o slide atual tem alguma foto (classe .polaroid)
         const hasImage = slides[currentSlide].querySelector('.polaroid') !== null;
-        // Se tiver foto, dura 15.3 segundos (70% a mais). Se não, dura 9 segundos.
         const currentDuration = hasImage ? 15300 : 9000; 
 
         slideStartTime = Date.now();
