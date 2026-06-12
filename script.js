@@ -24,6 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "roleta-img-5.jpeg",
         "roleta-img-6.jpeg",
         "roleta-img-7.jpeg",
+        "roleta-img-8.jpeg",
+        "roleta-img-9.jpeg",
         "maria-eugenia-2.jpeg",
         "maria-eugenia-1.jpeg",
         "first-date-1.jpeg",
@@ -104,12 +106,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 "src/roleta-img-5.jpeg",
                 "src/roleta-img-6.jpeg",
                 "src/roleta-img-7.jpeg",
+                "src/roleta-img-8.jpeg",
+                "src/roleta-img-9.jpeg",
                 "src/maria-eugenia-1.jpeg",
                 "src/maria-eugenia-2.jpeg",
             ];
 
             let photoCount = 0;
-            const maxPhotos = 11; 
+            const maxPhotos = allPhotos.length; 
 
             const popInterval = setInterval(() => {
                 if (photoCount >= maxPhotos) {
