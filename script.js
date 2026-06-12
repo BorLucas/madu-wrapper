@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if(typeof animateTimeTogether === 'function') animateTimeTogether();
         }
         
-        if (currentSlide === 6) {
+        if (currentSlide === slides.length - 1) {
             startFinalSequence();
         }
         
