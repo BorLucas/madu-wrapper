@@ -24,6 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
         "roleta-img-5.jpeg",
         "roleta-img-6.jpeg",
         "roleta-img-7.jpeg",
+        "maria-eugenia-2.jpeg",
+        "maria-eugenia-1.jpeg",
+        "first-date-1.jpeg",
     ];
 
 
@@ -38,7 +41,21 @@ document.addEventListener("DOMContentLoaded", () => {
         
         stackContainer.innerHTML = ""; // Limpa a pilha anterior
 
-        randomPhotosList.forEach((photo, index) => {
+        // 1. Algoritmo para embaralhar a lista de fotos exclusivamente para a pilha
+        function shufflePhotos(array) {
+            const shuffled = [...array]; // Cria uma cópia para não alterar a lista original
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // 2. Cria a lista embaralhada
+        const mixedPhotos = shufflePhotos(randomPhotosList);
+
+        // 3. Monta a pilha usando a lista embaralhada
+        mixedPhotos.forEach((photo, index) => {
             const polaroid = document.createElement('div');
             polaroid.className = 'polaroid-stack-item';
             
@@ -68,18 +85,15 @@ document.addEventListener("DOMContentLoaded", () => {
         ];
         
         const popContainer = document.getElementById('photo-pop-container');
-        popContainer.innerHTML = ""; // Limpa se ela voltar ao slide
+        popContainer.innerHTML = "";
 
-        // 1. Aparece as frases com intervalo
         lines.forEach((line, index) => {
             setTimeout(() => {
                 line.classList.add('show');
-            }, index * 2000); // Aparece uma frase a cada 2 segundos
+            }, index * 2000);
         });
 
-        // 2. Começa a "pipocar" as fotos após a segunda frase
         setTimeout(() => {
-            // Lista de todas as fotos que você usou no projeto
             const allPhotos = [
                 "src/first-date-1.jpeg",
                 "src/first-date-2.jpeg",
@@ -114,7 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const photoDiv = document.createElement('div');
         photoDiv.className = 'popping-photo';
         
-        // Posições aleatórias na tela (evitando ficar muito nas bordas)
         const top = Math.random() * 70 + 10; 
         const left = Math.random() * 70 + 10;
         const rotation = Math.random() * 40 - 20;
@@ -151,7 +164,6 @@ document.addEventListener("DOMContentLoaded", () => {
         bgContainer.appendChild(el);
     }
 
-    // ---- PALETA DE FUNDOS PARA CADA SLIDE ----
     const slideBackgrounds = [
         "linear-gradient(135deg, #1e3c72 0%, #2a5298 40%, #ff7eb3 100%)", // Slide 0
         "linear-gradient(135deg, #141e30 0%, #243b55 60%, #fbc2eb 100%)", // Slide 1
