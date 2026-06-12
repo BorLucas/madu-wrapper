@@ -202,3 +202,39 @@ p { font-size: 1.2rem; line-height: 1.5; text-shadow: 1px 1px 4px rgba(0,0,0,0.6
     z-index: 100; 
     position: relative;
 }
+
+.gallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+    /* Removido o gap e o flex-wrap para usarmos a sobreposição manual */
+}
+
+/* Aumentando o tamanho das fotos em 50% (de 130px para 195px) */
+.gallery .polaroid img {
+    width: 100%;
+    max-width: 195px; 
+    aspect-ratio: 3/4;
+}
+
+/* Foto da esquerda: Inclina para a esquerda e entra um pouco para a direita */
+.gallery .polaroid:nth-child(1) {
+    transform: rotate(-10deg) translateX(15%);
+    z-index: 1;
+    transition: z-index 0.2s, transform 0.2s;
+}
+
+/* Foto da direita: Inclina para a direita e entra um pouco para a esquerda */
+.gallery .polaroid:nth-child(2) {
+    transform: rotate(8deg) translateX(-15%);
+    z-index: 2;
+    transition: z-index 0.2s, transform 0.2s;
+}
+
+/* Bônus interativo: se a Madu clicar/tocar na foto que está atrás, ela vem para frente! */
+.gallery .polaroid:active {
+    z-index: 10;
+    transform: scale(1.05);
+}
