@@ -6,13 +6,12 @@ window.onSpotifyIframeApiReady = (IFrameAPI) => {
     const options = {
         width: '100%',
         height: '80',
-        // COLE O URI DA SUA MÚSICA AQUI ABAIXO:
-        uri: 'spotify:track:7qiZfU4dY1lWllzX7mPBI3' 
+        hidden: true,
+        uri: 'spotify:track:4pG8lbKPKkfGSniMXxZTM7' 
     };
     const callback = (EmbedController) => {
         spotifyPlayerController = EmbedController;
     };
-    // Cria o tocador na tela
     IFrameAPI.createController(element, options, callback);
 };
 
