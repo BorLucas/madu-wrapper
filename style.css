@@ -167,8 +167,7 @@ p { font-size: 1.2rem; line-height: 1.5; text-shadow: 1px 1px 4px rgba(0,0,0,0.6
 
 /* Quando o slide aparece, dispara a animação de Pulo/Balanço nas fotos dele */
 .slide.active .polaroid {
-    /* O 'cubic-bezier' cria o efeito de mola (vai além do tamanho e volta) */
-    animation: polaroidPopIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation: polaroidPopIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 /* A MÁGICA: A foto vem de baixo, gira passando do ponto, e estabiliza */
@@ -235,14 +234,14 @@ p { font-size: 1.2rem; line-height: 1.5; text-shadow: 1px 1px 4px rgba(0,0,0,0.6
 .gallery .polaroid:nth-child(1) {
     --base-rotation: -10deg;
     z-index: 1;
-    animation-delay: 0.1s; /* Começa quase na hora */
+    animation-delay: 0.15s; /* Um leve respiro antes de começar */
 }
 
-/* Foto da direita: cai logo em seguida (efeito cascata) */
+/* Foto da direita: aumenta o tempo do efeito cascata (de 0.35s para 0.5s) */
 .gallery .polaroid:nth-child(2) {
     --base-rotation: 8deg;
     z-index: 2;
-    animation-delay: 0.35s; /* Espera um terço de segundo pra cair */
+    animation-delay: 0.5s; 
 }
 
 /* Bônus: O toque continua funcionando com a nova variável! */

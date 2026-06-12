@@ -114,7 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     const slides = document.querySelectorAll(".slide");
-    const TIME_PER_SLIDE = 9000; 
     let currentSlide = 0;
     let slideTimer;
     let progressAnimation;
@@ -184,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
         startSlideProgress();
     }
 
-    function startSlideProgress() {
+    unction startSlideProgress() {
         clearInterval(progressAnimation);
         clearTimeout(slideTimer);
 
@@ -193,11 +192,17 @@ document.addEventListener("DOMContentLoaded", () => {
             return; 
         }
 
+        // ---- LÓGICA DE TEMPO DINÂMICO ----
+        // Verifica se o slide atual tem alguma foto (classe .polaroid)
+        const hasImage = slides[currentSlide].querySelector('.polaroid') !== null;
+        // Se tiver foto, dura 15.3 segundos (70% a mais). Se não, dura 9 segundos.
+        const currentDuration = hasImage ? 15300 : 9000; 
+
         slideStartTime = Date.now();
         
         progressAnimation = setInterval(() => {
             let elapsedTime = Date.now() - slideStartTime;
-            let percentage = (elapsedTime / TIME_PER_SLIDE) * 100;
+            let percentage = (elapsedTime / currentDuration) * 100;
             
             if (percentage >= 100) {
                 percentage = 100;
@@ -211,7 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 fillProgress(currentSlide, 100); 
                 goToSlide(currentSlide + 1);
             }
-        }, TIME_PER_SLIDE);
+        }, currentDuration);
     }
 
     function fillProgress(index, percentage) {
