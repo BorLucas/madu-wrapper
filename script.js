@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     window.requestAnimationFrame(step); // Continua animando
                 } else {
                     // Garante que termina exatamente no número correto
-                    timeElement.innerHTML = `${targetDays} dias<br><span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${targetHours.toLocaleString('pt-BR')} horas juntos)</span>`;
+                    timeElement.innerHTML = `${targetHours.toLocaleString('pt-BR')} horas<br><span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${targetDays} dias juntos)</span>`;
                 }
             }
             
