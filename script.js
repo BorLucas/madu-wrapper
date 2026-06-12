@@ -1,3 +1,21 @@
+let spotifyPlayerController;
+
+// Função que o Spotify chama automaticamente quando a API dele carrega
+window.onSpotifyIframeApiReady = (IFrameAPI) => {
+    const element = document.getElementById('spotify-embed');
+    const options = {
+        width: '100%',
+        height: '80',
+        // COLE O URI DA SUA MÚSICA AQUI ABAIXO:
+        uri: 'spotify:track:7qiZfU4dY1lWllzX7mPBI3' 
+    };
+    const callback = (EmbedController) => {
+        spotifyPlayerController = EmbedController;
+    };
+    // Cria o tocador na tela
+    IFrameAPI.createController(element, options, callback);
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     // ---- CONFIGURAÇÃO DAS FOTOS ALEATÓRIAS (SLIDE 3) ----
     const folderPath = "src/"; 
@@ -90,13 +108,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 const currentDays = Math.floor(easeOutProgress * targetDays);
                 const currentHours = Math.floor(easeOutProgress * targetHours);
 
-                timeElement.innerHTML = `${currentHours.toLocaleString('pt-BR')} horas<br><span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${currentDays} dias juntos)</span>`;
+                timeElement.innerHTML = `${currentHours.toLocaleString('pt-BR')} horas<br><span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${currentDays} dias)</span><br>juntos`;
 
                 if (progress < 1) {
                     window.requestAnimationFrame(step); // Continua animando
                 } else {
                     // Garante que termina exatamente no número correto
-                    timeElement.innerHTML = `${targetHours.toLocaleString('pt-BR')} horas<br><span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${targetDays} dias juntos)</span>`;
+                    timeElement.innerHTML = `${targetHours.toLocaleString('pt-BR')} horas<br><span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${targetDays} dias)</span><br>juntos`;
                 }
             }
             
@@ -119,6 +137,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     startBtn.addEventListener("click", (e) => {
         e.stopPropagation(); 
+        if (spotifyPlayerController) {
+            spotifyPlayerController.togglePlay();
+        }
         fillProgress(0, 100);
         goToSlide(1); 
     });
