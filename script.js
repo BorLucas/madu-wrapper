@@ -43,7 +43,22 @@ document.addEventListener("DOMContentLoaded", () => {
         bgContainer.appendChild(el);
     }
 
-    // ---- PALETA DE FUNDOS PARA CADA SLIDE ----
+    const preloadedImages = [];
+    randomPhotosList.forEach(photo => {
+        const img = new Image();
+        img.src = folderPath + photo;
+        preloadedImages.push(img);
+    });
+
+    const polaroidImgElement = document.getElementById('polaroid-image');
+
+    function setRandomPolaroid() {
+        if (polaroidImgElement && randomPhotosList.length > 0) {
+            const randomIndex = Math.floor(Math.random() * randomPhotosList.length);
+            polaroidImgElement.src = folderPath + randomPhotosList[randomIndex];
+        }
+    }
+
     const slideBackgrounds = [
         "linear-gradient(135deg, #1e3c72 0%, #2a5298 40%, #ff7eb3 100%)", // Slide 0: Play
         "linear-gradient(135deg, #141e30 0%, #243b55 60%, #fbc2eb 100%)", // Slide 1: Introdução
