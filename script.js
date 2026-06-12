@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     // ---- CONFIGURAÇÃO DAS FOTOS ALEATÓRIAS (SLIDE 3) ----
-    // 1. Defina aqui a pasta onde estão as fotos (relativo ao index.html)
     const folderPath = "src/"; 
 
-    // 2. Coloque aqui o nome exato dos arquivos que você salvou na pasta src
     const randomPhotosList = [
         "roleta-img-1.jpeg",
         "roleta-img-2.jpeg",
@@ -14,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "roleta-img-7.jpeg",
     ];
 
+    // ---- PRÉ-CARREGAMENTO DAS IMAGENS ----
     const preloadedImages = [];
     randomPhotosList.forEach(photo => {
         const img = new Image();
@@ -30,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // ---- CRIAR FUNDO FOFO GLOBAL (Corações Outline) ----
     const bgContainer = document.getElementById("floating-bg");
     const emojis = ["♡"]; 
     
@@ -44,30 +44,67 @@ document.addEventListener("DOMContentLoaded", () => {
         bgContainer.appendChild(el);
     }
 
+    // ---- PALETA DE FUNDOS PARA CADA SLIDE ----
     const slideBackgrounds = [
-        "linear-gradient(135deg, #1e3c72 0%, #2a5298 40%, #ff7eb3 100%)", // Slide 0: Play
-        "linear-gradient(135deg, #141e30 0%, #243b55 60%, #fbc2eb 100%)", // Slide 1: Introdução
-        "linear-gradient(135deg, #2980b9 0%, #6dd5fa 50%, #ff9a9e 100%)", // Slide 2: Primeiro Encontro
-        "linear-gradient(135deg, #4b6cb7 0%, #182848 70%, #ff7eb3 100%)", // Slide 3: Tempo Juntos
-        "linear-gradient(135deg, #09203f 0%, #537895 60%, #ffb199 100%)", // Slide 4: Pessoa Importante
-        "linear-gradient(135deg, #1e3c72 0%, #2a5298 30%, #fbc2eb 100%)", // Slide 5: Restaurante
-        "linear-gradient(135deg, #0f2027 0%, #203a43 50%, #e60073 100%)"  // Slide 6: Encerramento
+        "linear-gradient(135deg, #1e3c72 0%, #2a5298 40%, #ff7eb3 100%)", // Slide 0
+        "linear-gradient(135deg, #141e30 0%, #243b55 60%, #fbc2eb 100%)", // Slide 1
+        "linear-gradient(135deg, #2980b9 0%, #6dd5fa 50%, #ff9a9e 100%)", // Slide 2
+        "linear-gradient(135deg, #4b6cb7 0%, #182848 70%, #ff7eb3 100%)", // Slide 3
+        "linear-gradient(135deg, #09203f 0%, #537895 60%, #ffb199 100%)", // Slide 4
+        "linear-gradient(135deg, #1e3c72 0%, #2a5298 30%, #fbc2eb 100%)", // Slide 5
+        "linear-gradient(135deg, #0f2027 0%, #203a43 50%, #e60073 100%)"  // Slide 6
     ];
 
     document.body.style.background = slideBackgrounds[0];
 
-    // ---- CÁLCULO DE TEMPO JUNTOS ----
+    // ---- NOVO: LÓGICA DO CONTADOR ANIMADO (SLIDE 3) ----
     const startDate = new Date('2025-05-22T00:00:00');
-    const today = new Date();
-    
-    const diffTime = Math.abs(today - startDate);
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
-    
-    const timeElement = document.getElementById("time-together");
-    if (timeElement) {
-        timeElement.innerHTML = `${diffDays} dias<br><span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${diffHours.toLocaleString('pt-BR')} horas juntos)</span>`;
+    let counterTimeout; // Variável para controlar o timer do "Calculando..."
+
+    function animateTimeTogether() {
+        const timeElement = document.getElementById("time-together");
+        if (!timeElement) return;
+
+        // 1. Zera qualquer animação que estava rodando antes e mostra a mensagem de suspense
+        clearTimeout(counterTimeout);
+        timeElement.innerHTML = "Calculando...";
+
+        const today = new Date();
+        const diffTime = Math.abs(today - startDate);
+        const targetDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        const targetHours = Math.floor(diffTime / (1000 * 60 * 60));
+
+        // 2. Espera 1.5 segundos no "Calculando..." e depois inicia a contagem
+        counterTimeout = setTimeout(() => {
+            const animationDuration = 2000; // O contador vai subir durante 2 segundos
+            const startTimestamp = performance.now();
+
+            function step(timestamp) {
+                // Calcula o progresso de 0 a 1
+                let progress = (timestamp - startTimestamp) / animationDuration;
+                if (progress > 1) progress = 1;
+
+                // Efeito "Ease Out" (começa rápido e freia no final para ficar mais bonito)
+                const easeOutProgress = 1 - Math.pow(1 - progress, 3);
+
+                const currentDays = Math.floor(easeOutProgress * targetDays);
+                const currentHours = Math.floor(easeOutProgress * targetHours);
+
+                timeElement.innerHTML = `${currentDays} dias<br><span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${currentHours.toLocaleString('pt-BR')} horas juntos)</span>`;
+
+                if (progress < 1) {
+                    window.requestAnimationFrame(step); // Continua animando
+                } else {
+                    // Garante que termina exatamente no número correto
+                    timeElement.innerHTML = `${targetDays} dias<br><span style="font-size: 1.1rem; color: #fff; text-shadow: none;">(ou ${targetHours.toLocaleString('pt-BR')} horas juntos)</span>`;
+                }
+            }
+            
+            // Inicia o motor de animação visual do navegador
+            window.requestAnimationFrame(step);
+        }, 1500); // 1500ms = 1.5 segundos de suspense
     }
+
 
     // ---- LÓGICA DE PASSAR OS SLIDES (STORIES) ----
     const slides = document.querySelectorAll(".slide");
@@ -130,10 +167,10 @@ document.addEventListener("DOMContentLoaded", () => {
         
         document.body.style.background = slideBackgrounds[currentSlide];
 
-        // ---- NOVA LÓGICA AQUI ----
-        // Se o slide destino for o 3 (índice 3), escolhemos uma foto aleatória
+        // AÇÕES ESPECÍFICAS DO SLIDE 3
         if (currentSlide === 3) {
-            setRandomPolaroid();
+            setRandomPolaroid();    // 1. Troca a foto aleatória
+            animateTimeTogether();  // 2. Inicia o suspense e a animação dos números
         }
         
         startSlideProgress();
